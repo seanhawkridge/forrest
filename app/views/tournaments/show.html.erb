@@ -1,1 +1,20 @@
 <%= @tournament.name %>
+
+<ul>
+  <% @tournament.players.map do |player| %>
+    <li><%= player.name %></li>
+  <% end %>
+</ul>
+
+<%= form_for :player, url: players_path do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+    <%= f.hidden_field :tournament_id, value: @tournament.id %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<% console %>
