@@ -1,6 +1,27 @@
 <%= @tournament.name %>
 
-<% if @tournament.rounds %>
+<% if @tournament.rounds.empty? %>
+
+  <ul>
+    <% @tournament.players.map do |player| %>
+      <li><%= player.name %></li>
+    <% end %>
+  </ul>
+
+  <%= form_for :player, url: players_path do |f| %>
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+      <%= f.hidden_field :tournament_id, value: @tournament.id %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+
+  <%= button_to "Generate Matches", action: :build_tournament %>
+
+<% else %>
 
   <% @tournament.rounds.map.with_index do |round, i| %>
     <h1><%= "Round #{i+1}" %></h1>
@@ -29,26 +50,4 @@
       <% end %>
     <% end %>
   <% end %>
-
-<% else %>
-
-  <ul>
-    <% @tournament.players.map do |player| %>
-      <li><%= player.name %></li>
-    <% end %>
-  </ul>
-
-  <%= form_for :player, url: players_path do |f| %>
-    <p>
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
-      <%= f.hidden_field :tournament_id, value: @tournament.id %>
-    </p>
-    <p>
-      <%= f.submit %>
-    </p>
-  <% end %>
-
-  <%= button_to "Generate Matches", action: :build_tournament %>
-
 <% end %>
