@@ -10,5 +10,4 @@ class Round < ApplicationRecord
   def collect_winners
     matches.map { |match| match.winner }
   end
-
 end
