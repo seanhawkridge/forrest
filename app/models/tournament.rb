@@ -11,7 +11,12 @@ class Tournament < ApplicationRecord
 
   def process_results(round)
     current_round = rounds.find(round)
-    update_next_round unless current_round.is_final?
+    update_next_round(current_round) unless current_round.is_final?
+  end
+
+  def champion
+    final_winner = rounds.last.matches[0].winner
+    final_winner ? Player.find(final_winner).name : nil
   end
 
   private
@@ -42,8 +47,8 @@ class Tournament < ApplicationRecord
   end
 
   def update_next_round(round)
-    pairings = create_pairings(current_round.collect_winners)
-    next_round = rounds.find(round+1)
+    pairings = create_pairings(round.collect_winners)
+    next_round = rounds.find(round.id+1)
     next_round.matches.map.with_index do |match, i|
       match.player_one_id = pairings[i][0]
       match.player_two_id = pairings[i][1]
