@@ -20,25 +20,29 @@
 <%= button_to "Generate Matches", action: :build_tournament %>
 
 <% @tournament.rounds.map.with_index do |round, i| %>
-   <h1><%= "Round #{i+1}" %></h1>
-   <% round.matches.map do |match| %>
-     <h2>Match:</h2>
-     <h3>p1:<%= match.player_one ? match.player_one.name : "P L A Y E R   O N E" %></h3>
-     <h3>p2:<%= match.player_two ? match.player_two.name : "P L A Y E R   T W O" %></h3>
-     <%= form_for match do |f| %>
-       <p>
-         <%= f.label :p1_score %>
-         <%= f.text_field :p1_score %>
-         <%= f.label :p2_score %>
-         <%= f.text_field :p2_score %>
-         <%= f.hidden_field :tournament_id, value: @tournament.id %>
-       </p>
-       <p>
-         <%= f.submit %>
-       </p>
-      <% if round.is_final? %>
-        <h1>Champion: <%= @tournament.champion %></h1>
+  <h1><%= "Round #{i+1}" %></h1>
+  <% round.matches.map do |match| %>
+    <h2>Match:</h2>
+    <h3>p1:<%= match.player_one ? match.player_one.name : "P L A Y E R   O N E" %></h3>
+    <h3>p2:<%= match.player_two ? match.player_two.name : "P L A Y E R   T W O" %></h3>
+    <% if match.winner %>
+      <h3>Winner: <%= match.winner.name %></h3>
+    <% else %>
+      <%= form_for match do |f| %>
+        <p>
+          <%= f.label :p1_score %>
+          <%= f.text_field :p1_score %>
+          <%= f.label :p2_score %>
+          <%= f.text_field :p2_score %>
+          <%= f.hidden_field :tournament_id, value: @tournament.id %>
+        </p>
+        <p>
+          <%= f.submit %>
+        </p>
       <% end %>
-     <% end %>
-   <% end %>
- <% end %>
+    <% end %>
+    <% if round.is_final? %>
+      <h1>Champion: <%= @tournament.champion %></h1>
+    <% end %>
+  <% end %>
+<% end %>

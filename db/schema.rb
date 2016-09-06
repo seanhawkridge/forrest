@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20160906133541) do
     t.integer  "player_one_id"
     t.integer  "player_two_id"
     t.integer  "round_id"
-    t.integer  "winner"
+    t.integer  "winner_id"
     t.integer  "p1_score"
     t.integer  "p2_score"
     t.index ["round_id"], name: "index_matches_on_round_id", using: :btree
