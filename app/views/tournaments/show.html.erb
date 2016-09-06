@@ -36,6 +36,9 @@
        <p>
          <%= f.submit %>
        </p>
+      <% if round.is_final? %>
+        <h1>Champion: <%= @tournament.champion %></h1>
+      <% end %>
      <% end %>
    <% end %>
  <% end %>
