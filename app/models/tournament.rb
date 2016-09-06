@@ -9,10 +9,15 @@ class Tournament < ApplicationRecord
     create_remaining_rounds
   end
 
+  def process_results(round)
+    current_round = rounds.find(round)
+    update_next_round unless current_round.is_final?
+  end
+
   private
 
   def create_first_round
-    pairings = players.each_slice(2).to_a
+    pairings = create_pairings(players)
     first_round = rounds.build
     first_round_matches = pairings.map do |pair|
       first_round.matches << Match.create(player_one: pair[0], player_two: pair[1])
@@ -34,5 +39,25 @@ class Tournament < ApplicationRecord
       end
       rounds << next_round
     end
+  end
+
+  def update_next_round(round)
+    pairings = create_pairings(current_round.collect_winners)
+    next_round = rounds.find(round+1)
+    next_round.matches.map.with_index do |match, i|
+      match.player_one_id = pairings[i][0]
+      match.player_two_id = pairings[i][1]
+      match.save
+    end
+    next_round.save
+  end
+
+  def create_pairings(collection)
+    collection.each_slice(2).to_a
+  end
+
+  def collect_winners(round)
+    currentround = rounds.find(round)
+    pairings = create_pairings(current_round.collect_winners)
   end
 end

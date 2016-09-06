@@ -26,4 +26,8 @@ RSpec.describe Tournament, type: :model do
       expect(@tournament.rounds[1].matches.first.player_two).to eq nil
     end
   end
+
+  describe Tournament, '#log_score' do
+    
+  end
 end
