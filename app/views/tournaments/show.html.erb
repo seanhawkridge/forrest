@@ -1,4 +1,4 @@
-<%= @tournament.name %>
+<h1><%= @tournament.name %></h1>
 
 <% if @tournament.rounds.empty? %>
 
@@ -8,14 +8,21 @@
     <% end %>
   </ul>
 
+  <h3>Add new player</h3>
   <%= form_for :player, url: players_path do |f| %>
     <p>
       <%= f.label :name %><br>
       <%= f.text_field :name %>
       <%= f.hidden_field :tournament_id, value: @tournament.id %>
+      <%= f.submit "Add to Tournament" %>
     </p>
+  <% end %>
+
+  <h3>Add existing player</h3>
+  <%= form_for @tournament do |f| %>
     <p>
-      <%= f.submit %>
+      <%= f.collection_select(:players, Player.all, :id, :name) %>
+      <%= f.submit "Add to Tournament" %>
     </p>
   <% end %>
 
