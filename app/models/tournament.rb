@@ -14,6 +14,11 @@ class Tournament < ApplicationRecord
     update_next_round unless current_round.is_final?
   end
 
+  def champion
+    final_winner = rounds.last.collect_winners.join
+    Player.find(final_winner)
+  end
+
   private
 
   def create_first_round
