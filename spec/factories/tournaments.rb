@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :tournament do
-    name "MyString"
+    name "Forrest"
   end
 end

@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   resources :tournaments
   resources :players
 
+  get 'tournaments/:id/build_tournament', to: 'tournaments#build_tournament'
+  post 'tournaments/:id/build_tournament', to: 'tournaments#build_tournament'
+
 end

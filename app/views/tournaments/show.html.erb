@@ -17,4 +17,13 @@
   </p>
 <% end %>
 
-<% console %>
+<%= button_to "Generate Matches", action: :build_tournament %>
+
+<% @tournament.rounds.map.with_index do |round, i| %>
+   <h1><%= "Round #{i+1}" %></h1>
+   <% round.matches.map do |match| %>
+     <h2>Match:</h2>
+     <h3>p1:<%= match.player_one ? match.player_one.name : "P L A Y E R   O N E" %></h3>
+     <h3>p2:<%= match.player_two ? match.player_two.name : "P L A Y E R   T W O" %></h3>
+   <% end %>
+ <% end %>
