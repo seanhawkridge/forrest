@@ -12,14 +12,11 @@ class Tournament < ApplicationRecord
   def process_results(round)
     current_round = rounds.find(round)
     update_next_round(current_round) unless current_round.is_final?
-<<<<<<< HEAD
-=======
   end
 
   def champion
     final_winner = rounds.last.matches[0].winner
     final_winner ? Player.find(final_winner).name : nil
->>>>>>> sh/7-display-the-tournament-champion
   end
 
   private
