@@ -4,12 +4,11 @@ class MatchesController < ApplicationController
   end
 
   def update
-    @tournament = Tournament.find(params[:match][:tournament_id])
     @match = Match.find(params[:id])
-    winner = @match.calculate_winner(params[:match][:p1_score], params[:match][:p2_score])
-    @match.update_attributes(winner: winner, p1_score: params[:match][:p1_score], p2_score: params[:match][:p2_score])
+    @match.update_results(params[:match][:p1_score], params[:match][:p2_score])
+    @tournament = Tournament.find(params[:match][:tournament_id])
     @tournament.process_results(@match.round_id)
-    redirect_to(:back)
+    redirect_to(@tournament)
   end
 
   private

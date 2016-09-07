@@ -1,0 +1,5 @@
+<ul>
+<% @players.map do |player| %>
+  <li><%= player.name %> | win percentage: <%= number_to_percentage(player.win_percentage, precision: 0) %></li>
+<% end %>
+</ul>
