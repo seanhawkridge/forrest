@@ -40,6 +40,7 @@ group :development, :test do
   gem 'database_cleaner'
   # for generating content in tests
   gem 'faker'
+  gem 'pry'
 end
 
 group :development do
