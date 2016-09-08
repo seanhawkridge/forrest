@@ -1,6 +1,8 @@
 class MatchesController < ApplicationController
 
   def create
+    @match = Match.new(tournament_params)
+    @match.save
   end
 
   def update
@@ -14,6 +16,6 @@ class MatchesController < ApplicationController
   private
 
   def match_params
-    params.require(:match).permit(:player_one_id, :player_two_id, :round_id, :p1_score, :p2_score, :winner)
+    params.require(:match).permit(:player_one_id, :player_two_id, :round_id, :p1_score, :p2_score, :winner, :bye)
   end
 end

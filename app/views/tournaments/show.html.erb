@@ -34,8 +34,8 @@
     <h1><%= "Round #{i+1}" %></h1>
     <% round.matches.map do |match| %>
       <h2>Match:</h2>
-      <h3>p1:<%= match.player_one ? match.player_one.name : "P L A Y E R   O N E" %></h3>
-      <h3>p2:<%= match.player_two ? match.player_two.name : "P L A Y E R   T W O" %></h3>
+      <h3>p1:<%= match.player_one ? match.player_one.name : "P L A Y E R" %></h3>
+      <h3>p2:<%= match.player_two ? match.player_two.name : match.player_type %></h3>
       <% if match.winner %>
         <h3>Winner: <%= match.winner.name %></h3>
       <% else %>
@@ -58,3 +58,5 @@
     <% end %>
   <% end %>
 <% end %>
+
+<% console %>
